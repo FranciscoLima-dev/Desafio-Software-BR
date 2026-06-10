@@ -1,0 +1,73 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "postgresql"
+  url      = env("DATABASE_URL")
+}
+
+enum TaskStatus {
+  PENDING
+  IN_PROGRESS
+  COMPLETED
+}
+
+enum TaskPriority {
+  LOW
+  MEDIUM
+  HIGH
+}
+
+enum TaskHistoryAction {
+  STATUS_CHANGED
+  PRIORITY_CHANGED
+  RESPONSIBLE_CHANGED
+  DUE_DATE_CHANGED
+}
+
+model User {
+  id           String   @id @default(uuid()) @db.Uuid
+  name         String   @db.VarChar(120)
+  email        String   @unique @db.VarChar(255)
+  passwordHash String   @map("password_hash") @db.VarChar(255)
+  tasks        Task[]
+  createdAt    DateTime @default(now()) @map("created_at")
+  updatedAt    DateTime @updatedAt @map("updated_at")
+
+  @@map("users")
+}
+
+model Task {
+  id          String        @id @default(uuid()) @db.Uuid
+  title       String        @db.VarChar(160)
+  description String?       @db.Text
+  status      TaskStatus    @default(PENDING)
+  priority    TaskPriority  @default(MEDIUM)
+  responsible String?       @db.VarChar(120)
+  dueDate     DateTime      @map("due_date")
+  userId      String        @map("user_id") @db.Uuid
+  user        User          @relation(fields: [userId], references: [id], onDelete: Cascade)
+  history     TaskHistory[]
+  createdAt   DateTime      @default(now()) @map("created_at")
+  updatedAt   DateTime      @updatedAt @map("updated_at")
+
+  @@index([userId, status])
+  @@index([userId, priority])
+  @@index([userId, dueDate])
+  @@map("tasks")
+}
+
+model TaskHistory {
+  id        String            @id @default(uuid()) @db.Uuid
+  taskId    String            @map("task_id") @db.Uuid
+  task      Task              @relation(fields: [taskId], references: [id], onDelete: Cascade)
+  action    TaskHistoryAction
+  oldValue  String?           @map("old_value") @db.Text
+  newValue  String?           @map("new_value") @db.Text
+  createdAt DateTime          @default(now()) @map("created_at")
+
+  @@index([taskId, createdAt])
+  @@map("task_history")
+}
+
