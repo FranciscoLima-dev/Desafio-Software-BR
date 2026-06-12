@@ -1,29 +1,109 @@
 import type { Request, Response } from "express";
+import { TaskService } from "../services/task.service.js";
+import type {
+  CreateTaskInput,
+  ListTasksQuery,
+  UpdateTaskInput,
+  UpdateTaskStatusInput,
+} from "../schemas/task.schema.js";
 import { ApiError } from "../utils/api-error.js";
 
 export class TaskController {
-  list = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Listagem de tarefas sera implementada na etapa 4.");
+  constructor(private readonly taskService = new TaskService()) {}
+
+  list = async (request: Request, response: Response): Promise<void> => {
+    const tasks = await this.taskService.list(
+      this.getAuthenticatedUserId(request),
+      request.query as ListTasksQuery,
+    );
+
+    response.status(200).json({
+      success: true,
+      data: tasks,
+    });
   };
 
-  findById = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Consulta de tarefa sera implementada na etapa 4.");
+  findById = async (request: Request, response: Response): Promise<void> => {
+    const task = await this.taskService.findById(
+      this.getAuthenticatedUserId(request),
+      request.params.id,
+    );
+
+    response.status(200).json({
+      success: true,
+      data: task,
+    });
   };
 
-  create = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Criacao de tarefa sera implementada na etapa 4.");
+  create = async (request: Request, response: Response): Promise<void> => {
+    const task = await this.taskService.create(
+      this.getAuthenticatedUserId(request),
+      request.body as CreateTaskInput,
+    );
+
+    response.status(201).json({
+      success: true,
+      message: "Tarefa criada com sucesso.",
+      data: task,
+    });
   };
 
-  update = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Edicao de tarefa sera implementada na etapa 4.");
+  update = async (request: Request, response: Response): Promise<void> => {
+    const task = await this.taskService.update(
+      this.getAuthenticatedUserId(request),
+      request.params.id,
+      request.body as UpdateTaskInput,
+    );
+
+    response.status(200).json({
+      success: true,
+      message: "Tarefa atualizada com sucesso.",
+      data: task,
+    });
   };
 
-  remove = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Exclusao de tarefa sera implementada na etapa 4.");
+  updateStatus = async (request: Request, response: Response): Promise<void> => {
+    const { status } = request.body as UpdateTaskStatusInput;
+
+    const task = await this.taskService.updateStatus(
+      this.getAuthenticatedUserId(request),
+      request.params.id,
+      status,
+    );
+
+    response.status(200).json({
+      success: true,
+      message: "Status da tarefa atualizado com sucesso.",
+      data: task,
+    });
   };
 
-  history = async (_request: Request, _response: Response): Promise<void> => {
-    throw new ApiError(501, "Historico de tarefa sera implementado na etapa 5.");
+  remove = async (request: Request, response: Response): Promise<void> => {
+    await this.taskService.remove(this.getAuthenticatedUserId(request), request.params.id);
+
+    response.status(200).json({
+      success: true,
+      message: "Tarefa excluida com sucesso.",
+    });
+  };
+
+  history = async (request: Request, response: Response): Promise<void> => {
+    const history = await this.taskService.history(
+      this.getAuthenticatedUserId(request),
+      request.params.id,
+    );
+
+    response.status(200).json({
+      success: true,
+      data: history,
+    });
+  };
+
+  private getAuthenticatedUserId(request: Request): string {
+    if (!request.user) {
+      throw new ApiError(401, "Usuario nao autenticado.");
+    }
+
+    return request.user.id;
   };
 }
-

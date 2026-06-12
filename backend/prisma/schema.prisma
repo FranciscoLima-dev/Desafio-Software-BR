@@ -20,6 +20,9 @@ enum TaskPriority {
 }
 
 enum TaskHistoryAction {
+  TASK_CREATED
+  TASK_UPDATED
+  TASK_DELETED
   STATUS_CHANGED
   PRIORITY_CHANGED
   RESPONSIBLE_CHANGED
@@ -51,10 +54,12 @@ model Task {
   history     TaskHistory[]
   createdAt   DateTime      @default(now()) @map("created_at")
   updatedAt   DateTime      @updatedAt @map("updated_at")
+  deletedAt   DateTime?     @map("deleted_at")
 
   @@index([userId, status])
   @@index([userId, priority])
   @@index([userId, dueDate])
+  @@index([userId, deletedAt])
   @@map("tasks")
 }
 
@@ -70,4 +75,3 @@ model TaskHistory {
   @@index([taskId, createdAt])
   @@map("task_history")
 }
-

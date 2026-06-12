@@ -19,6 +19,10 @@ export const updateTaskSchema = createTaskSchema.partial().refine(
   "Informe ao menos um campo para atualizar.",
 );
 
+export const updateTaskStatusSchema = z.object({
+  status: z.nativeEnum(TaskStatus),
+});
+
 export const listTasksQuerySchema = z.object({
   status: z.nativeEnum(TaskStatus).optional(),
   priority: z.nativeEnum(TaskPriority).optional(),
@@ -29,5 +33,5 @@ export const listTasksQuerySchema = z.object({
 
 export type CreateTaskInput = z.infer<typeof createTaskSchema>;
 export type UpdateTaskInput = z.infer<typeof updateTaskSchema>;
+export type UpdateTaskStatusInput = z.infer<typeof updateTaskStatusSchema>;
 export type ListTasksQuery = z.infer<typeof listTasksQuerySchema>;
-

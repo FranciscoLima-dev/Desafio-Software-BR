@@ -1,4 +1,1 @@
-export function TasksPage() {
-  return <main>Tarefas</main>;
-}
-
+export { TaskListPage as TasksPage } from "./TaskListPage";

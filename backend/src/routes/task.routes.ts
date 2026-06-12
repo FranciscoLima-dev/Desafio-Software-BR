@@ -6,6 +6,7 @@ import {
   createTaskSchema,
   listTasksQuerySchema,
   taskIdParamSchema,
+  updateTaskStatusSchema,
   updateTaskSchema,
 } from "../schemas/task.schema.js";
 import { asyncHandler } from "../utils/async-handler.js";
@@ -39,6 +40,12 @@ taskRoutes.put(
   asyncHandler(taskController.update),
 );
 
+taskRoutes.patch(
+  "/:id/status",
+  validateRequest({ params: taskIdParamSchema, body: updateTaskStatusSchema }),
+  asyncHandler(taskController.updateStatus),
+);
+
 taskRoutes.delete(
   "/:id",
   validateRequest({ params: taskIdParamSchema }),
@@ -52,4 +59,3 @@ taskRoutes.get(
 );
 
 export { taskRoutes };
-
