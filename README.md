@@ -1,67 +1,86 @@
 # Task Manager
 
-Sistema full stack de gerenciamento de tarefas desenvolvido para um desafio tecnico.
+Sistema full stack de gerenciamento de tarefas desenvolvido para um desafio técnico.
 
-O projeto esta publicado e funcional, com frontend na Vercel, backend no Render e banco
-PostgreSQL hospedado no Supabase. A aplicacao permite cadastro, login, gerenciamento de
-tarefas, filtros, dashboard e historico de alteracoes.
+O projeto está publicado e funcional, com frontend na Vercel, backend no Render e banco
+PostgreSQL hospedado no Supabase. A aplicação permite cadastro, login, controle de sessão,
+gerenciamento de tarefas, filtros combináveis, dashboard com indicadores reais e histórico de
+alterações.
 
-## Status do projeto
-
-Projeto publicado e funcional.
+## Demonstração
 
 - Frontend: [https://desafio-software-br-frontend.vercel.app](https://desafio-software-br-frontend.vercel.app)
 - Backend: [https://desafio-software-br.onrender.com](https://desafio-software-br.onrender.com)
 - Health check da API: [https://desafio-software-br.onrender.com/health](https://desafio-software-br.onrender.com/health)
 
-## Conta de teste
-
-Use a conta abaixo para validar o fluxo em producao:
+### Conta de teste
 
 ```text
-Email: Usuarioteste@gmail.com
+E-mail: Usuarioteste@gmail.com
 Senha: Teste123
 ```
 
-Tambem e possivel criar uma nova conta pela tela de cadastro.
+### Fluxo sugerido para avaliação
 
-## Funcionalidades implementadas
+1. Acessar o frontend publicado.
+2. Entrar com a conta de teste ou criar um novo usuário.
+3. Conferir os indicadores do dashboard.
+4. Criar uma tarefa com prioridade, responsável e data limite.
+5. Filtrar tarefas por status, prioridade, responsável e data limite.
+6. Usar a pesquisa por título ou descrição.
+7. Alterar o status da tarefa.
+8. Editar os dados da tarefa.
+9. Consultar o histórico de alterações.
+10. Excluir a tarefa usando o modal de confirmação.
+11. Fazer logout.
 
-### Autenticacao
+## Checklist de Funcionalidades
 
-- Cadastro de usuario.
-- Login com email e senha.
-- Logout.
-- Hash de senha com bcrypt.
-- Autenticacao com JWT.
-- Persistencia do token no frontend.
-- Rotas protegidas no frontend e no backend.
-- Tratamento de credenciais invalidas.
-
-### Tarefas
-
-- Criacao de tarefas.
-- Listagem de tarefas.
-- Edicao de tarefas.
-- Exclusao logica.
-- Alteracao rapida de status.
-- Busca textual por titulo e descricao.
-- Filtros por status, prioridade e responsavel.
-- Controle de acesso por usuario autenticado.
-
-### Dashboard
-
-- Total de tarefas pendentes.
-- Total de tarefas concluidas.
-- Total de tarefas atrasadas.
-- Dados reais vindos do banco.
-
-### Historico
-
-- Registro de criacao, atualizacao, alteracao de status, prioridade, responsavel, prazo e exclusao.
-- Tela simples para consulta do historico de cada tarefa.
+- [x] Cadastro de usuário
+- [x] Login
+- [x] Logout
+- [x] Proteção de rotas
+- [x] Controle de acesso por usuário
+- [x] CRUD de tarefas
+- [x] Status da tarefa
+- [x] Prioridade
+- [x] Responsável
+- [x] Data limite
+- [x] Identificação de tarefas atrasadas
+- [x] Filtros por status, prioridade, responsável e data limite
+- [x] Pesquisa por título e descrição
+- [x] Dashboard com indicadores reais
+- [x] Histórico de alterações
+- [x] Persistência em banco de dados
+- [x] Deploy do frontend
+- [x] Deploy do backend
 
 ## Arquitetura
+
+O projeto foi organizado como um monorepo com duas aplicações principais:
+
+- `frontend`: aplicação React com Vite, responsável pela interface, rotas client-side, sessão do
+  usuário e consumo da API.
+- `backend`: API REST em Node.js e Express, responsável por autenticação, regras de negócio,
+  validação, persistência e segurança das rotas.
+- `backend/prisma`: modelagem do banco, migrations e configuração do Prisma ORM.
+
+### Frontend
+
+O frontend segue uma estrutura simples e separada por responsabilidade:
+
+- `pages`: telas da aplicação.
+- `components`: componentes reutilizáveis de formulário, tarefas e interface.
+- `services`: chamadas HTTP para o backend usando Axios.
+- `contexts`: estado global de autenticação.
+- `routes`: configuração de rotas e proteção de páginas autenticadas.
+- `utils`: validações, formatações e helpers.
+- `types`: tipos compartilhados da aplicação.
+
+A URL da API é configurada por `VITE_API_URL`. Em produção, essa variável aponta para o backend
+publicado no Render.
+
+### Backend
 
 O backend segue arquitetura em camadas:
 
@@ -74,28 +93,69 @@ Request
 -> Database
 ```
 
-Responsabilidades principais:
+Responsabilidades:
 
-- `routes`: definem endpoints, middlewares e validacoes.
-- `controllers`: recebem a requisicao HTTP e retornam a resposta.
-- `services`: concentram regras de negocio.
+- `routes`: definem endpoints, validadores e middlewares.
+- `controllers`: recebem a requisição HTTP e retornam a resposta.
+- `services`: concentram regras de negócio.
 - `repositories`: centralizam todo acesso ao Prisma.
-- `middlewares`: autenticacao, validacao e tratamento global de erros.
-- `schemas`: validacoes com Zod.
-- `config`: configuracoes de ambiente e Prisma.
+- `middlewares`: autenticação, validação e tratamento global de erros.
+- `schemas`: validações com Zod.
+- `config`: configuração de ambiente e Prisma.
 - `utils`: helpers compartilhados, como `ApiError`.
 
-No frontend, a organizacao segue uma separacao simples:
+Essa separação evita que controllers acessem diretamente o banco e mantém as regras de negócio
+fora das rotas.
 
-- `pages`: telas da aplicacao.
-- `components`: componentes reutilizaveis.
-- `services`: chamadas HTTP para a API.
-- `contexts`: estado global, como autenticacao.
-- `routes`: definicao das rotas e protecao de paginas.
-- `types`: tipos compartilhados.
-- `utils`: formatadores, validacoes e helpers.
+### Banco de dados
 
-## Estrutura de pastas
+O banco usado é PostgreSQL, hospedado no Supabase. A modelagem principal possui:
+
+- `users`: usuários da aplicação.
+- `tasks`: tarefas vinculadas ao usuário autenticado.
+- `task_history`: histórico de alterações das tarefas.
+
+As tarefas usam `deletedAt` para exclusão lógica. Dessa forma, a tarefa deixa de aparecer na
+listagem principal, mas seu histórico continua preservado.
+
+Enums principais:
+
+- `TaskStatus`: `PENDING`, `IN_PROGRESS`, `COMPLETED`
+- `TaskPriority`: `LOW`, `MEDIUM`, `HIGH`
+- `TaskHistoryAction`: ações registradas no histórico
+
+## Tecnologias Utilizadas
+
+### Frontend
+
+- React
+- TypeScript
+- Vite
+- React Router
+- React Hook Form
+- Zod
+- Tailwind CSS
+- Axios
+- Sonner
+
+### Backend
+
+- Node.js
+- Express
+- TypeScript
+- Prisma ORM
+- PostgreSQL
+- JWT
+- bcrypt
+- Zod
+
+### Banco e Deploy
+
+- Supabase/PostgreSQL
+- Vercel
+- Render
+
+## Estrutura de Pastas
 
 ```text
 task-manager/
@@ -135,65 +195,21 @@ task-manager/
   README.md
 ```
 
-## Tecnologias utilizadas
+## Variáveis de Ambiente
 
-### Frontend
-
-- React
-- TypeScript
-- Vite
-- React Router
-- React Hook Form
-- Zod
-- Tailwind CSS
-- Axios
-- Sonner
+Use o arquivo `.env.example` como referência.
 
 ### Backend
 
-- Node.js
-- Express
-- TypeScript
-- Prisma ORM
-- PostgreSQL
-- JWT
-- bcrypt
-- Zod
+| Variável         | Descrição                                                  |
+| ---------------- | ---------------------------------------------------------- |
+| `DATABASE_URL`   | Connection string do PostgreSQL/Supabase                   |
+| `JWT_SECRET`     | Chave usada para assinar os tokens JWT                     |
+| `JWT_EXPIRES_IN` | Tempo de expiração do token, por exemplo `1d`              |
+| `CORS_ORIGIN`    | URL do frontend liberada no CORS                           |
+| `PORT`           | Porta local da API; em produção o Render injeta esse valor |
 
-### Banco de dados
-
-- PostgreSQL
-- Supabase
-
-## Banco de dados e Prisma
-
-Principais tabelas:
-
-- `users`: usuarios da aplicacao.
-- `tasks`: tarefas criadas pelos usuarios.
-- `task_history`: historico de alteracoes das tarefas.
-
-As tarefas usam `deletedAt` para exclusao logica. Assim, a tarefa deixa de aparecer na
-listagem principal, mas o historico continua preservado.
-
-Enums principais:
-
-- `TaskStatus`: `PENDING`, `IN_PROGRESS`, `COMPLETED`
-- `TaskPriority`: `LOW`, `MEDIUM`, `HIGH`
-- `TaskHistoryAction`: acoes registradas no historico
-
-Comandos do Prisma:
-
-```bash
-npm --prefix backend run prisma:generate
-npm --prefix backend run prisma:migrate
-```
-
-## Variaveis de ambiente
-
-Use o arquivo `.env.example` como referencia.
-
-### Backend
+Exemplo local:
 
 ```env
 DATABASE_URL="postgresql://postgres:postgres@localhost:5432/task_manager?schema=public"
@@ -203,34 +219,49 @@ JWT_EXPIRES_IN="1d"
 CORS_ORIGIN="http://localhost:5173"
 ```
 
-Em producao no Render, as variaveis sao configuradas no painel do servico. O backend nao
-depende de arquivo `.env` em producao.
-
-Para Supabase, use a connection string do projeto, por exemplo:
+Em produção no Render:
 
 ```env
-DATABASE_URL="postgresql://postgres.PROJECT_REF:YOUR_PASSWORD@aws-1-sa-east-1.pooler.supabase.com:5432/postgres"
+DATABASE_URL="connection-string-do-supabase"
+JWT_SECRET="segredo-com-no-minimo-32-caracteres"
+JWT_EXPIRES_IN="1d"
+CORS_ORIGIN="https://desafio-software-br-frontend.vercel.app"
 ```
 
 ### Frontend
+
+| Variável       | Descrição                  |
+| -------------- | -------------------------- |
+| `VITE_API_URL` | URL base da API com `/api` |
+
+Exemplo local:
 
 ```env
 VITE_API_URL="http://localhost:3333/api"
 ```
 
-Em producao na Vercel:
+Em produção na Vercel:
 
 ```env
 VITE_API_URL="https://desafio-software-br.onrender.com/api"
 ```
 
-## Instalacao
+## Execução Local
 
-Instale as dependencias na raiz do projeto:
+### 1. Clonar o repositório
+
+```bash
+git clone <url-do-repositorio>
+cd task-manager
+```
+
+### 2. Instalar dependências
 
 ```bash
 npm install
 ```
+
+### 3. Configurar variáveis de ambiente
 
 Crie o arquivo de ambiente do backend:
 
@@ -244,35 +275,59 @@ No Windows PowerShell:
 Copy-Item .env.example backend/.env
 ```
 
-Depois, edite `backend/.env` com os dados reais do banco e do JWT.
+Depois, edite `backend/.env` com os dados reais do banco, JWT e CORS.
 
-## Execucao local
+Para rodar o frontend localmente usando outro backend, configure `VITE_API_URL` em um arquivo de
+ambiente dentro de `frontend` ou use a variável no ambiente de execução.
 
-Rode as migrations:
+### 4. Rodar Prisma e migrations
+
+Gere o Prisma Client:
+
+```bash
+npm --prefix backend run prisma:generate
+```
+
+Rode as migrations quando estiver configurando o banco pela primeira vez ou quando houver mudança de
+schema:
 
 ```bash
 npm --prefix backend run prisma:migrate
 ```
 
-Inicie o backend:
+### 5. Rodar backend
 
 ```bash
 npm run dev:backend
 ```
 
-Em outro terminal, inicie o frontend:
+Backend local:
+
+```text
+http://localhost:3333
+```
+
+Health check:
+
+```text
+http://localhost:3333/health
+```
+
+### 6. Rodar frontend
+
+Em outro terminal:
 
 ```bash
 npm run dev:frontend
 ```
 
-URLs locais:
+Frontend local:
 
-- Frontend: `http://localhost:5173`
-- Backend: `http://localhost:3333`
-- Health check: `http://localhost:3333/health`
+```text
+http://localhost:5173
+```
 
-## Comandos disponiveis
+## Comandos Disponíveis
 
 Na raiz:
 
@@ -304,7 +359,7 @@ npm --prefix frontend run preview
 
 ## Build
 
-O build completo e executado pela raiz:
+O build completo é executado pela raiz:
 
 ```bash
 npm run build
@@ -315,90 +370,67 @@ Esse comando:
 1. Gera o Prisma Client.
 2. Compila o backend com TypeScript.
 3. Compila o frontend com TypeScript.
-4. Gera o bundle de producao com Vite.
+4. Gera o bundle de produção com Vite.
 
 ## Deploy
 
 ### Backend no Render
 
-Configuracao usada:
+Configuração usada:
 
 - Root Directory: `backend`
 - Build Command: `npm ci && npx prisma generate && npm run build`
 - Start Command: `npm run start`
 
-Variaveis importantes no Render:
-
-```env
-DATABASE_URL="connection-string-do-supabase"
-JWT_SECRET="segredo-com-no-minimo-32-caracteres"
-JWT_EXPIRES_IN="1d"
-CORS_ORIGIN="https://desafio-software-br-frontend.vercel.app"
-```
-
-O Render injeta a variavel `PORT` automaticamente.
+O backend usa `process.env.PORT`, então a porta injetada pelo Render é respeitada automaticamente.
 
 ### Frontend na Vercel
 
-Configuracao usada:
+Configuração usada:
 
 - Root Directory: `frontend`
 - Build Command: `npm run build`
 - Output Directory: `dist`
 
-Variavel importante na Vercel:
+O arquivo `frontend/vercel.json` faz rewrite das rotas client-side para `index.html`, permitindo
+acessar rotas como `/login`, `/dashboard` e `/tasks` diretamente pelo navegador.
 
-```env
-VITE_API_URL="https://desafio-software-br.onrender.com/api"
-```
+## Decisões Técnicas
 
-O arquivo `frontend/vercel.json` redireciona rotas client-side para `index.html`, permitindo
-acessar rotas como `/login` diretamente.
+- **React + TypeScript**: usados no frontend para criar uma interface tipada, componentizada e mais
+  fácil de manter.
+- **Express + TypeScript**: usado no backend pela simplicidade para criar APIs REST com tipagem e
+  organização em camadas.
+- **Prisma ORM**: centraliza o acesso ao banco, mantém a modelagem versionada e reduz SQL manual.
+- **PostgreSQL/Supabase**: banco relacional adequado para usuários, tarefas e histórico de
+  alterações.
+- **JWT**: usado para autenticação stateless entre frontend e backend.
+- **bcrypt**: usado para armazenar senhas com hash.
+- **Zod**: usado para validação de entradas no frontend e no backend.
+- **Axios com interceptor**: envia o token JWT automaticamente nas requisições protegidas.
+- **Vercel e Render**: usados para separar o deploy do frontend e da API, mantendo o monorepo simples.
 
-## Como testar em producao
+## Como Testar em Produção
 
 1. Acesse [https://desafio-software-br-frontend.vercel.app](https://desafio-software-br-frontend.vercel.app).
-2. Entre com a conta de teste ou crie um novo usuario.
-3. Acesse o dashboard.
-4. Crie uma tarefa.
-5. Filtre por status, prioridade ou responsavel.
-6. Altere o status da tarefa.
-7. Edite uma tarefa.
-8. Consulte o historico da tarefa.
-9. Exclua uma tarefa e confirme que ela sai da listagem.
+2. Entre com a conta de teste ou crie uma nova conta.
+3. Acesse o dashboard e confira os indicadores.
+4. Crie uma tarefa com data limite.
+5. Use filtros por status, prioridade, responsável e data limite.
+6. Pesquise por título ou descrição.
+7. Altere o status da tarefa.
+8. Edite a tarefa.
+9. Consulte o histórico.
+10. Exclua a tarefa.
+11. Faça logout.
 
-## Fluxo de uso
+## Possíveis Melhorias Futuras
 
-1. O usuario cria uma conta ou faz login.
-2. O frontend armazena o token JWT no `localStorage`.
-3. O Axios envia o token no header `Authorization`.
-4. O backend valida o JWT no middleware de autenticacao.
-5. As rotas protegidas usam o `userId` autenticado para buscar apenas os dados do usuario.
-6. Alteracoes relevantes em tarefas geram registros em `task_history`.
-7. O dashboard resume as tarefas pendentes, concluidas e atrasadas.
-
-## Decisoes arquiteturais
-
-- Controllers nao acessam Prisma diretamente.
-- Regras de negocio ficam nos services.
-- Todo acesso ao banco fica nos repositories.
-- Rotas de tarefas e dashboard exigem JWT.
-- Consultas de tarefas sempre usam o `userId` do usuario autenticado.
-- Erros de negocio usam `ApiError`.
-- O backend possui `globalErrorHandler` para padronizar respostas.
-- O frontend usa Axios com interceptor para enviar o token automaticamente.
-- O frontend usa `AuthContext` para centralizar sessao e logout.
-- A exclusao de tarefas e logica para preservar historico.
-
-## Possiveis melhorias futuras
-
-- Criar testes automatizados para services e repositories.
-- Adicionar testes de interface nos fluxos principais.
-- Implementar paginacao na listagem de tarefas.
-- Adicionar ordenacao por prioridade, status e data limite.
-- Criar documentacao OpenAPI/Swagger.
-- Implementar refresh token.
-- Melhorar acessibilidade com revisao de foco e navegacao por teclado.
-- Adicionar perfil do usuario.
-- Transformar responsaveis em entidade propria.
-- Criar notificacoes para tarefas atrasadas.
+- Testes automatizados no backend e no frontend.
+- Documentação Swagger/OpenAPI para a API.
+- Refresh token para melhorar a experiência de sessão.
+- Upload de avatar para o perfil do usuário.
+- Notificações para tarefas próximas do vencimento ou atrasadas.
+- Pipeline de CI/CD com build, lint e testes automatizados.
+- Paginação e ordenação avançada na listagem de tarefas.
+- Melhorias de acessibilidade com revisão de foco, contraste e navegação por teclado.
