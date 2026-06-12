@@ -1,8 +1,24 @@
 import axios from "axios";
 import { getStoredAuthSession } from "../utils/auth-storage";
 
+const localApiUrl = "http://localhost:3333/api";
+
+function getApiBaseUrl() {
+  const configuredApiUrl = import.meta.env.VITE_API_URL?.trim();
+
+  if (configuredApiUrl) {
+    return configuredApiUrl.replace(/\/+$/, "");
+  }
+
+  if (import.meta.env.DEV) {
+    return localApiUrl;
+  }
+
+  throw new Error("VITE_API_URL precisa ser configurada para o ambiente de producao.");
+}
+
 export const api = axios.create({
-  baseURL: import.meta.env.VITE_API_URL ?? "http://localhost:3333/api",
+  baseURL: getApiBaseUrl(),
 });
 
 api.interceptors.request.use((config) => {
