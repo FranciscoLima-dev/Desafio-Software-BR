@@ -25,6 +25,7 @@ export type TaskFilters = {
   status?: TaskStatus;
   priority?: TaskPriority;
   responsible?: string;
+  dueDate?: string;
 };
 
 export type TaskPayload = {

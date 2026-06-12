@@ -32,6 +32,7 @@ export function TaskListPage() {
   const [isLoading, setIsLoading] = useState(true);
   const [updatingStatusId, setUpdatingStatusId] = useState<string | null>(null);
   const [deletingId, setDeletingId] = useState<string | null>(null);
+  const [taskPendingDeletion, setTaskPendingDeletion] = useState<Task | null>(null);
 
   const loadTasks = useCallback(async () => {
     try {
@@ -69,6 +70,11 @@ export function TaskListPage() {
     }));
   };
 
+  const clearFilters = () => {
+    setSearchInput("");
+    setFilters({});
+  };
+
   const handleStatusChange = async (task: Task, status: TaskStatus) => {
     try {
       setUpdatingStatusId(task.id);
@@ -93,16 +99,11 @@ export function TaskListPage() {
   };
 
   const handleDelete = async (task: Task) => {
-    const confirmed = window.confirm(`Excluir a tarefa "${task.title}"?`);
-
-    if (!confirmed) {
-      return;
-    }
-
     try {
       setDeletingId(task.id);
       await taskService.remove(task.id);
       setTasks((currentTasks) => currentTasks.filter((currentTask) => currentTask.id !== task.id));
+      setTaskPendingDeletion(null);
       toast.success("Tarefa excluida.");
     } catch (requestError) {
       toast.error(getApiErrorMessage(requestError));
@@ -128,7 +129,7 @@ export function TaskListPage() {
         </Link>
       </div>
 
-      <div className="mb-5 grid gap-3 rounded-lg border border-slate-800 bg-slate-900 p-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr]">
+      <div className="mb-5 grid gap-3 rounded-lg border border-slate-800 bg-slate-900 p-4 lg:grid-cols-[1.4fr_1fr_1fr_1fr_1fr_auto]">
         <input
           className="h-11 rounded-md border border-slate-700 bg-slate-950 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"
           onChange={(event) => setSearchInput(event.target.value)}
@@ -168,6 +169,22 @@ export function TaskListPage() {
           placeholder="Responsavel"
           value={filters.responsible ?? ""}
         />
+
+        <input
+          aria-label="Filtrar por data limite"
+          className="h-11 rounded-md border border-slate-700 bg-slate-950 px-3 text-sm text-slate-100 outline-none focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"
+          onChange={(event) => updateFilter("dueDate", event.target.value)}
+          type="date"
+          value={filters.dueDate ?? ""}
+        />
+
+        <button
+          className="h-11 rounded-md border border-slate-700 px-4 text-sm font-semibold text-slate-200 transition hover:border-slate-600 hover:bg-slate-800"
+          onClick={clearFilters}
+          type="button"
+        >
+          Limpar
+        </button>
       </div>
 
       {error ? (
@@ -261,7 +278,7 @@ export function TaskListPage() {
                         <button
                           className="rounded-md border border-red-400/30 px-3 py-2 text-xs font-semibold text-red-200 transition hover:bg-red-950/40 disabled:cursor-not-allowed disabled:opacity-60"
                           disabled={deletingId === task.id}
-                          onClick={() => void handleDelete(task)}
+                          onClick={() => setTaskPendingDeletion(task)}
                           type="button"
                         >
                           {deletingId === task.id ? "Excluindo..." : "Excluir"}
@@ -275,6 +292,44 @@ export function TaskListPage() {
           </table>
         </div>
       </div>
+
+      {taskPendingDeletion ? (
+        <div
+          aria-labelledby="delete-task-title"
+          aria-modal="true"
+          className="fixed inset-0 z-50 flex items-center justify-center bg-slate-950/75 px-4"
+          role="dialog"
+        >
+          <div className="w-full max-w-md rounded-lg border border-slate-800 bg-slate-900 p-5 shadow-xl shadow-slate-950/40">
+            <h2 className="text-lg font-semibold text-white" id="delete-task-title">
+              Excluir tarefa
+            </h2>
+            <p className="mt-2 text-sm leading-6 text-slate-400">
+              Tem certeza que deseja excluir a tarefa{" "}
+              <span className="font-semibold text-slate-100">"{taskPendingDeletion.title}"</span>?
+            </p>
+
+            <div className="mt-6 flex flex-col-reverse gap-3 sm:flex-row sm:justify-end">
+              <button
+                className="h-10 rounded-md border border-slate-700 px-4 text-sm font-semibold text-slate-200 transition hover:border-slate-600 hover:bg-slate-800 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={deletingId === taskPendingDeletion.id}
+                onClick={() => setTaskPendingDeletion(null)}
+                type="button"
+              >
+                Cancelar
+              </button>
+              <button
+                className="h-10 rounded-md bg-red-500 px-4 text-sm font-semibold text-white transition hover:bg-red-400 disabled:cursor-not-allowed disabled:opacity-60"
+                disabled={deletingId === taskPendingDeletion.id}
+                onClick={() => void handleDelete(taskPendingDeletion)}
+                type="button"
+              >
+                {deletingId === taskPendingDeletion.id ? "Excluindo..." : "Excluir"}
+              </button>
+            </div>
+          </div>
+        </div>
+      ) : null}
     </section>
   );
 }
