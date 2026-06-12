@@ -104,7 +104,7 @@ export function TaskListPage() {
       await taskService.remove(task.id);
       setTasks((currentTasks) => currentTasks.filter((currentTask) => currentTask.id !== task.id));
       setTaskPendingDeletion(null);
-      toast.success("Tarefa excluida.");
+      toast.success("Tarefa excluída.");
     } catch (requestError) {
       toast.error(getApiErrorMessage(requestError));
     } finally {
@@ -118,7 +118,7 @@ export function TaskListPage() {
         <div>
           <h1 className="text-2xl font-semibold text-white">Tarefas</h1>
           <p className="mt-2 text-sm text-slate-400">
-            Consulte, filtre e atualize suas tarefas em um unico lugar.
+            Consulte, filtre e atualize suas tarefas em um único lugar.
           </p>
         </div>
         <Link
@@ -133,7 +133,7 @@ export function TaskListPage() {
         <input
           className="h-11 rounded-md border border-slate-700 bg-slate-950 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"
           onChange={(event) => setSearchInput(event.target.value)}
-          placeholder="Buscar por titulo ou descricao"
+          placeholder="Buscar por título ou descrição"
           value={searchInput}
         />
 
@@ -166,7 +166,7 @@ export function TaskListPage() {
         <input
           className="h-11 rounded-md border border-slate-700 bg-slate-950 px-3 text-sm text-slate-100 outline-none placeholder:text-slate-500 focus:border-emerald-400 focus:ring-2 focus:ring-emerald-400/20"
           onChange={(event) => updateFilter("responsible", event.target.value)}
-          placeholder="Responsavel"
+          placeholder="Responsável"
           value={filters.responsible ?? ""}
         />
 
@@ -198,12 +198,12 @@ export function TaskListPage() {
           <table className="min-w-[920px] w-full border-collapse text-left">
             <thead className="bg-slate-950/60 text-xs uppercase tracking-wide text-slate-500">
               <tr>
-                <th className="px-4 py-3 font-semibold">Titulo</th>
+                <th className="px-4 py-3 font-semibold">Título</th>
                 <th className="px-4 py-3 font-semibold">Prioridade</th>
-                <th className="px-4 py-3 font-semibold">Responsavel</th>
+                <th className="px-4 py-3 font-semibold">Responsável</th>
                 <th className="px-4 py-3 font-semibold">Status</th>
                 <th className="px-4 py-3 font-semibold">Data limite</th>
-                <th className="px-4 py-3 text-right font-semibold">Acoes</th>
+                <th className="px-4 py-3 text-right font-semibold">Ações</th>
               </tr>
             </thead>
             <tbody className="divide-y divide-slate-800">
@@ -243,7 +243,7 @@ export function TaskListPage() {
                         {taskPriorityLabel[task.priority]}
                       </span>
                     </td>
-                    <td className="px-4 py-4">{task.responsible || "Nao definido"}</td>
+                    <td className="px-4 py-4">{task.responsible || "Não definido"}</td>
                     <td className="px-4 py-4">
                       <select
                         className={`h-9 rounded-md border px-2 text-xs font-semibold outline-none ${statusClasses[task.status]}`}
@@ -273,7 +273,7 @@ export function TaskListPage() {
                           className="rounded-md border border-slate-700 px-3 py-2 text-xs font-semibold text-slate-200 transition hover:border-slate-600 hover:bg-slate-800"
                           to={`/tasks/${task.id}/history`}
                         >
-                          Historico
+                          Histórico
                         </Link>
                         <button
                           className="rounded-md border border-red-400/30 px-3 py-2 text-xs font-semibold text-red-200 transition hover:bg-red-950/40 disabled:cursor-not-allowed disabled:opacity-60"

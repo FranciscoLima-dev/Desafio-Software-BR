@@ -10,7 +10,7 @@ export function AppLayout() {
 
   const handleLogout = async () => {
     await logout();
-    toast.success("Sessao encerrada.");
+    toast.success("Sessão encerrada.");
     navigate("/login", { replace: true });
   };
 

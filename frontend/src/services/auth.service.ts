@@ -16,7 +16,7 @@ export type RegisterPayload = {
 
 const unwrapAuthResponse = (response: ApiResponse<AuthSession>): AuthSession => {
   if (!response.data) {
-    throw new Error(response.message ?? "Resposta invalida do servidor.");
+    throw new Error(response.message ?? "Resposta inválida do servidor.");
   }
 
   return response.data;

@@ -7,7 +7,7 @@ export const dashboardService = {
     const response = await api.get<ApiResponse<DashboardSummary>>("/dashboard");
 
     if (!response.data.data) {
-      throw new Error(response.data.message ?? "Nao foi possivel carregar o dashboard.");
+      throw new Error(response.data.message ?? "Não foi possível carregar o dashboard.");
     }
 
     return response.data.data;

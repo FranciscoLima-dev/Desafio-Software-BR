@@ -3,12 +3,12 @@ import type { TaskHistoryEntry, TaskPriority, TaskStatus } from "../types/task";
 export const taskStatusLabel: Record<TaskStatus, string> = {
   PENDING: "Pendente",
   IN_PROGRESS: "Em andamento",
-  COMPLETED: "Concluida",
+  COMPLETED: "Concluída",
 };
 
 export const taskPriorityLabel: Record<TaskPriority, string> = {
   LOW: "Baixa",
-  MEDIUM: "Media",
+  MEDIUM: "Média",
   HIGH: "Alta",
 };
 
@@ -50,16 +50,16 @@ export const formatHistoryDescription = (entry: TaskHistoryEntry): string => {
     case "TASK_UPDATED":
       return "Tarefa atualizada";
     case "TASK_DELETED":
-      return "Tarefa excluida";
+      return "Tarefa excluída";
     case "STATUS_CHANGED":
-      return `Status alterado para ${newValue ? taskStatusLabel[newValue as TaskStatus] : "nao definido"}`;
+      return `Status alterado para ${newValue ? taskStatusLabel[newValue as TaskStatus] : "não definido"}`;
     case "PRIORITY_CHANGED":
-      return `Prioridade alterada para ${newValue ? taskPriorityLabel[newValue as TaskPriority] : "nao definida"}`;
+      return `Prioridade alterada para ${newValue ? taskPriorityLabel[newValue as TaskPriority] : "não definida"}`;
     case "RESPONSIBLE_CHANGED":
-      return `Responsavel alterado para ${newValue ?? "nao definido"}`;
+      return `Responsável alterado para ${newValue ?? "não definido"}`;
     case "DUE_DATE_CHANGED":
-      return `Prazo alterado para ${newValue ? formatDate(newValue) : "nao definido"}`;
+      return `Prazo alterado para ${newValue ? formatDate(newValue) : "não definido"}`;
     default:
-      return "Alteracao registrada";
+      return "Alteração registrada";
   }
 };

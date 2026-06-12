@@ -17,7 +17,7 @@ export function TaskHistoryPage() {
 
     const loadHistory = async () => {
       if (!id) {
-        setError("Tarefa nao encontrada.");
+        setError("Tarefa não encontrada.");
         setIsLoading(false);
         return;
       }
@@ -56,9 +56,9 @@ export function TaskHistoryPage() {
     <section>
       <div className="mb-8 flex flex-col gap-4 sm:flex-row sm:items-end sm:justify-between">
         <div>
-          <h1 className="text-2xl font-semibold text-white">Historico da tarefa</h1>
+          <h1 className="text-2xl font-semibold text-white">Histórico da tarefa</h1>
           <p className="mt-2 text-sm text-slate-400">
-            {task?.title ?? "Acompanhe as alteracoes registradas para esta tarefa."}
+            {task?.title ?? "Acompanhe as alterações registradas para esta tarefa."}
           </p>
         </div>
         <Link
@@ -87,7 +87,7 @@ export function TaskHistoryPage() {
           </div>
         ) : history.length === 0 ? (
           <div className="py-8 text-center text-sm text-slate-400">
-            Nenhuma alteracao registrada.
+            Nenhuma alteração registrada.
           </div>
         ) : (
           <ol className="space-y-5">

@@ -62,7 +62,7 @@ export function LoginPage() {
         <TextField
           autoComplete="email"
           error={errors.email?.message}
-          label="Email"
+          label="E-mail"
           type="email"
           {...register("email")}
         />
@@ -86,7 +86,7 @@ export function LoginPage() {
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-400">
-        Ainda nao tem conta?{" "}
+        Ainda não tem conta?{" "}
         <Link className="font-semibold text-emerald-300 hover:text-emerald-200" to="/register">
           Criar cadastro
         </Link>

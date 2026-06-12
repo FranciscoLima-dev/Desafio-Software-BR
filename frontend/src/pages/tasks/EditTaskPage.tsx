@@ -19,7 +19,7 @@ export function EditTaskPage() {
 
     const loadTask = async () => {
       if (!id) {
-        setError("Tarefa nao encontrada.");
+        setError("Tarefa não encontrada.");
         setIsLoading(false);
         return;
       }
@@ -75,7 +75,7 @@ export function EditTaskPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-white">Editar tarefa</h1>
         <p className="mt-2 text-sm text-slate-400">
-          Atualize os detalhes e acompanhe o historico da tarefa.
+          Atualize os detalhes e acompanhe o histórico da tarefa.
         </p>
       </div>
 
@@ -105,19 +105,19 @@ export function EditTaskPage() {
               className="inline-flex h-9 items-center justify-center rounded-md border border-slate-700 bg-slate-900 px-3 text-sm font-semibold text-slate-100 transition hover:border-slate-600 hover:bg-slate-800"
               to={`/tasks/${task.id}/history`}
             >
-              Ver historico
+              Ver histórico
             </Link>
           </div>
           <TaskForm
             initialTask={task}
             isSubmitting={isSubmitting}
             onSubmit={handleSubmit}
-            submitLabel="Salvar alteracoes"
+            submitLabel="Salvar alterações"
           />
         </div>
       ) : (
         <div className="rounded-lg border border-slate-800 bg-slate-900 p-8 text-center">
-          <p className="text-sm text-slate-400">Tarefa nao encontrada.</p>
+          <p className="text-sm text-slate-400">Tarefa não encontrada.</p>
           <Link
             className="mt-4 inline-flex text-sm font-semibold text-emerald-300 hover:text-emerald-200"
             to="/tasks"

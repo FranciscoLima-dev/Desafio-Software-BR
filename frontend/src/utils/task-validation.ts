@@ -5,11 +5,11 @@ const dateInputSchema = z
   .string()
   .min(1, "Informe a data limite.")
   .refine((value) => !Number.isNaN(new Date(`${value}T00:00:00`).getTime()), {
-    message: "Informe uma data valida.",
+    message: "Informe uma data válida.",
   });
 
 export const taskFormSchema = z.object({
-  title: z.string().trim().min(1, "Informe o titulo da tarefa."),
+  title: z.string().trim().min(1, "Informe o título da tarefa."),
   description: z.string().trim().optional(),
   status: z.enum(["PENDING", "IN_PROGRESS", "COMPLETED"]),
   priority: z.enum(["LOW", "MEDIUM", "HIGH"]),

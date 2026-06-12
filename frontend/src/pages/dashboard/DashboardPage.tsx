@@ -18,10 +18,10 @@ const cards = [
   {
     description: "Finalizadas com sucesso",
     key: "completed",
-    label: "Concluidas",
+    label: "Concluídas",
   },
   {
-    description: "Prazo vencido e nao concluidas",
+    description: "Prazo vencido e não concluídas",
     key: "overdue",
     label: "Atrasadas",
   },
@@ -66,7 +66,7 @@ export function DashboardPage() {
     <section>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-white">Dashboard</h1>
-        <p className="mt-2 text-sm text-slate-400">Visao inicial da sua operacao de tarefas.</p>
+        <p className="mt-2 text-sm text-slate-400">Visão inicial da sua operação de tarefas.</p>
       </div>
 
       {error ? (

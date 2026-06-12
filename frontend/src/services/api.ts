@@ -14,7 +14,7 @@ function getApiBaseUrl() {
     return localApiUrl;
   }
 
-  throw new Error("VITE_API_URL precisa ser configurada para o ambiente de producao.");
+  throw new Error("VITE_API_URL precisa ser configurada para o ambiente de produção.");
 }
 
 export const api = axios.create({

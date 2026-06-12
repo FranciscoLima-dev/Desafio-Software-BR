@@ -69,7 +69,7 @@ export function TaskForm({
         <div className="lg:col-span-2">
           <TextField
             error={errors.title?.message}
-            label="Titulo"
+            label="Título"
             placeholder="Ex.: Revisar proposta do cliente"
             {...register("title")}
           />
@@ -91,8 +91,8 @@ export function TaskForm({
 
         <TextField
           error={errors.responsible?.message}
-          label="Responsavel"
-          placeholder="Nome da pessoa responsavel"
+          label="Responsável"
+          placeholder="Nome da pessoa responsável"
           {...register("responsible")}
         />
 
@@ -106,8 +106,8 @@ export function TaskForm({
         <div className="lg:col-span-2">
           <TextAreaField
             error={errors.description?.message}
-            label="Descricao"
-            placeholder="Detalhes, contexto ou criterios de conclusao"
+            label="Descrição"
+            placeholder="Detalhes, contexto ou critérios de conclusão"
             {...register("description")}
           />
         </div>

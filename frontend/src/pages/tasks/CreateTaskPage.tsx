@@ -32,7 +32,7 @@ export function CreateTaskPage() {
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-white">Nova tarefa</h1>
         <p className="mt-2 text-sm text-slate-400">
-          Registre uma tarefa com prioridade, responsavel e prazo bem definidos.
+          Registre uma tarefa com prioridade, responsável e prazo bem definidos.
         </p>
       </div>
 

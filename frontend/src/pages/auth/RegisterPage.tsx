@@ -47,7 +47,7 @@ export function RegisterPage() {
       <div className="mb-8">
         <h2 className="text-2xl font-semibold text-white">Criar conta</h2>
         <p className="mt-2 text-sm leading-6 text-slate-400">
-          Cadastre-se para gerenciar suas tarefas com seguranca.
+          Cadastre-se para gerenciar suas tarefas com segurança.
         </p>
       </div>
 
@@ -62,7 +62,7 @@ export function RegisterPage() {
         <TextField
           autoComplete="email"
           error={errors.email?.message}
-          label="Email"
+          label="E-mail"
           type="email"
           {...register("email")}
         />
@@ -93,7 +93,7 @@ export function RegisterPage() {
       </form>
 
       <p className="mt-6 text-center text-sm text-slate-400">
-        Ja tem uma conta?{" "}
+        Já tem uma conta?{" "}
         <Link className="font-semibold text-emerald-300 hover:text-emerald-200" to="/login">
           Entrar
         </Link>

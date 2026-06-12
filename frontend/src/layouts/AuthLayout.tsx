@@ -7,7 +7,7 @@ export function AuthLayout() {
   if (isInitializing) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-slate-950 text-sm font-medium text-slate-200">
-        Carregando sessao...
+        Carregando sessão...
       </main>
     );
   }
@@ -28,7 +28,7 @@ export function AuthLayout() {
               Organize tarefas com foco, contexto e propriedade.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-300">
-              Uma base limpa para acompanhar prioridades, responsaveis e prazos sem perder o
+              Uma base limpa para acompanhar prioridades, responsáveis e prazos sem perder o
               controle do fluxo.
             </p>
           </div>

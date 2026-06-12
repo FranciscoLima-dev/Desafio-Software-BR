@@ -8,7 +8,7 @@ export function ProtectedRoute() {
   if (isInitializing) {
     return (
       <main className="flex min-h-screen items-center justify-center bg-slate-950 text-sm font-medium text-slate-200">
-        Carregando sessao...
+        Carregando sessão...
       </main>
     );
   }

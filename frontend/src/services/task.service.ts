@@ -7,7 +7,7 @@ const cleanFilters = (filters: TaskFilters): TaskFilters =>
 
 const unwrapTask = (response: ApiResponse<Task>): Task => {
   if (!response.data) {
-    throw new Error(response.message ?? "Tarefa nao encontrada.");
+    throw new Error(response.message ?? "Tarefa não encontrada.");
   }
 
   return response.data;
