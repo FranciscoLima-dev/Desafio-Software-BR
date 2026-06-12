@@ -7,10 +7,7 @@ import { TextField } from "../../components/form/TextField";
 import { Button } from "../../components/ui/Button";
 import { useAuth } from "../../contexts/AuthContext";
 import { getApiErrorMessage } from "../../utils/api-error";
-import {
-  registerFormSchema,
-  type RegisterFormValues,
-} from "../../utils/auth-validation";
+import { registerFormSchema, type RegisterFormValues } from "../../utils/auth-validation";
 
 export function RegisterPage() {
   const { register: createAccount } = useAuth();

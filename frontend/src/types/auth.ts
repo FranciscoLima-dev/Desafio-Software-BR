@@ -8,4 +8,3 @@ export type AuthSession = {
   user: AuthUser;
   token: string;
 };
-

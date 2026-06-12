@@ -23,4 +23,3 @@ authRoutes.post(
 authRoutes.post("/logout", authenticate, asyncHandler(authController.logout));
 
 export { authRoutes };
-

@@ -46,4 +46,3 @@ export const setStoredAuthSession = (session: AuthSession): void => {
 export const removeStoredAuthSession = (): void => {
   window.localStorage.removeItem(AUTH_STORAGE_KEY);
 };
-

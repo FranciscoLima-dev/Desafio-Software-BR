@@ -10,4 +10,3 @@ dashboardRoutes.use(authenticate);
 dashboardRoutes.get("/", asyncHandler(dashboardController.summary));
 
 export { dashboardRoutes };
-

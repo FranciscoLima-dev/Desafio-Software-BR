@@ -105,5 +105,5 @@ export class TaskController {
     }
 
     return request.user.id;
-  };
+  }
 }

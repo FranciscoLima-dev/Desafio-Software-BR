@@ -63,4 +63,3 @@
 - Documentar arquitetura.
 - Documentar instalacao, variaveis, comandos e decisoes tecnicas.
 - Registrar melhorias futuras.
-

@@ -27,4 +27,3 @@ export const toTaskPayload = (values: TaskFormValues): TaskPayload => ({
   responsible: values.responsible || undefined,
   dueDate: new Date(`${values.dueDate}T00:00:00`).toISOString(),
 });
-

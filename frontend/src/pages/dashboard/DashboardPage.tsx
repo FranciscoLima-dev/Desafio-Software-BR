@@ -66,9 +66,7 @@ export function DashboardPage() {
     <section>
       <div className="mb-8">
         <h1 className="text-2xl font-semibold text-white">Dashboard</h1>
-        <p className="mt-2 text-sm text-slate-400">
-          Visao inicial da sua operacao de tarefas.
-        </p>
+        <p className="mt-2 text-sm text-slate-400">Visao inicial da sua operacao de tarefas.</p>
       </div>
 
       {error ? (

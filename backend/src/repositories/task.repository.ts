@@ -1,10 +1,6 @@
 import type { Prisma } from "@prisma/client";
 import { prisma } from "../config/prisma.js";
-import type {
-  CreateTaskInput,
-  ListTasksQuery,
-  UpdateTaskInput,
-} from "../schemas/task.schema.js";
+import type { CreateTaskInput, ListTasksQuery, UpdateTaskInput } from "../schemas/task.schema.js";
 
 const endOfDay = (date: Date): Date => {
   const limit = new Date(date);

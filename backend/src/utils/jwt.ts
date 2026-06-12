@@ -44,4 +44,3 @@ export const verifyAuthToken = (token: string): TokenPayload => {
     throw new ApiError(401, "Token invalido ou expirado.");
   }
 };
-

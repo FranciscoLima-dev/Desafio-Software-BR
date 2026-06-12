@@ -8,11 +8,7 @@ import { TextField } from "../form/TextField";
 import { Button } from "../ui/Button";
 import type { Task } from "../../types/task";
 import { taskPriorityOptions, taskStatusOptions, toDateInputValue } from "../../utils/task-format";
-import {
-  taskFormSchema,
-  toTaskPayload,
-  type TaskFormValues,
-} from "../../utils/task-validation";
+import { taskFormSchema, toTaskPayload, type TaskFormValues } from "../../utils/task-validation";
 
 type TaskFormProps = {
   initialTask?: Task;

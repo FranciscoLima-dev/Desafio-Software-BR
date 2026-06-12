@@ -12,4 +12,3 @@ export const getApiErrorMessage = (error: unknown): string => {
 
   return "Ocorreu um erro inesperado.";
 };
-

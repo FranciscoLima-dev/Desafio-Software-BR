@@ -8,4 +8,3 @@ export type AuthResponse = {
   user: AuthenticatedUser;
   token: string;
 };
-

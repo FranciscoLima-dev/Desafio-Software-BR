@@ -37,4 +37,3 @@ export const authService = {
     await api.post<ApiResponse<never>>("/auth/logout");
   },
 };
-

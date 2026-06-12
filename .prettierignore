@@ -1,0 +1,15 @@
+node_modules
+dist
+coverage
+
+backend/dist
+backend/node_modules
+frontend/dist
+frontend/node_modules
+
+.env
+.env.*
+!.env.example
+
+package-lock.json
+backend/package-lock.json

@@ -28,7 +28,8 @@ export function AuthLayout() {
               Organize tarefas com foco, contexto e propriedade.
             </h1>
             <p className="mt-5 text-lg leading-8 text-slate-300">
-              Uma base limpa para acompanhar prioridades, responsaveis e prazos sem perder o controle do fluxo.
+              Uma base limpa para acompanhar prioridades, responsaveis e prazos sem perder o
+              controle do fluxo.
             </p>
           </div>
 

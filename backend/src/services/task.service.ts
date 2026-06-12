@@ -2,11 +2,7 @@ import type { Task, TaskHistoryAction, TaskStatus } from "@prisma/client";
 import { TaskHistoryAction as HistoryAction } from "@prisma/client";
 import { TaskHistoryRepository } from "../repositories/task-history.repository.js";
 import { TaskRepository } from "../repositories/task.repository.js";
-import type {
-  CreateTaskInput,
-  ListTasksQuery,
-  UpdateTaskInput,
-} from "../schemas/task.schema.js";
+import type { CreateTaskInput, ListTasksQuery, UpdateTaskInput } from "../schemas/task.schema.js";
 import { ApiError } from "../utils/api-error.js";
 
 type HistoryEntry = {

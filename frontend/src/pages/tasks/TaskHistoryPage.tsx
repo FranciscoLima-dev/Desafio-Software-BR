@@ -92,7 +92,10 @@ export function TaskHistoryPage() {
         ) : (
           <ol className="space-y-5">
             {history.map((entry) => (
-              <li className="grid gap-2 border-b border-slate-800 pb-5 last:border-0 last:pb-0 sm:grid-cols-[130px_1fr]" key={entry.id}>
+              <li
+                className="grid gap-2 border-b border-slate-800 pb-5 last:border-0 last:pb-0 sm:grid-cols-[130px_1fr]"
+                key={entry.id}
+              >
                 <time className="text-sm font-medium text-slate-400">
                   {formatDate(entry.createdAt)}
                 </time>

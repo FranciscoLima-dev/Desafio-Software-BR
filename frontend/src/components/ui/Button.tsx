@@ -7,8 +7,7 @@ type ButtonProps = ButtonHTMLAttributes<HTMLButtonElement> & {
 };
 
 const variantClasses = {
-  primary:
-    "bg-emerald-500 text-slate-950 shadow-sm shadow-emerald-950/20 hover:bg-emerald-400",
+  primary: "bg-emerald-500 text-slate-950 shadow-sm shadow-emerald-950/20 hover:bg-emerald-400",
   secondary:
     "border border-slate-700 bg-slate-900 text-slate-100 hover:border-slate-600 hover:bg-slate-800",
   ghost: "text-slate-300 hover:bg-slate-900 hover:text-white",
@@ -38,4 +37,3 @@ export function Button({
     </button>
   );
 }
-

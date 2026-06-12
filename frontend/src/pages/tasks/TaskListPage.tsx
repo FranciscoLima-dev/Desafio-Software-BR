@@ -102,9 +102,7 @@ export function TaskListPage() {
     try {
       setDeletingId(task.id);
       await taskService.remove(task.id);
-      setTasks((currentTasks) =>
-        currentTasks.filter((currentTask) => currentTask.id !== task.id),
-      );
+      setTasks((currentTasks) => currentTasks.filter((currentTask) => currentTask.id !== task.id));
       toast.success("Tarefa excluida.");
     } catch (requestError) {
       toast.error(getApiErrorMessage(requestError));
@@ -222,7 +220,9 @@ export function TaskListPage() {
                       </div>
                     </td>
                     <td className="px-4 py-4">
-                      <span className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${priorityClasses[task.priority]}`}>
+                      <span
+                        className={`inline-flex rounded-full border px-2.5 py-1 text-xs font-semibold ${priorityClasses[task.priority]}`}
+                      >
                         {taskPriorityLabel[task.priority]}
                       </span>
                     </td>

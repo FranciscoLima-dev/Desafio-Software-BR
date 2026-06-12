@@ -43,11 +43,7 @@ export function CreateTaskPage() {
       ) : null}
 
       <div className="rounded-lg border border-slate-800 bg-slate-900 p-6">
-        <TaskForm
-          isSubmitting={isSubmitting}
-          onSubmit={handleSubmit}
-          submitLabel="Criar tarefa"
-        />
+        <TaskForm isSubmitting={isSubmitting} onSubmit={handleSubmit} submitLabel="Criar tarefa" />
       </div>
     </section>
   );

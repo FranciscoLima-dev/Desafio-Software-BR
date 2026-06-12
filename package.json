@@ -6,11 +6,14 @@
     "dev:backend": "npm --prefix backend run dev",
     "dev:frontend": "npm --prefix frontend run dev",
     "build": "npm --prefix backend run build && npm --prefix frontend run build",
-    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint"
+    "lint": "npm --prefix backend run lint && npm --prefix frontend run lint",
+    "format": "prettier --write ."
   },
   "workspaces": [
     "backend",
     "frontend"
-  ]
+  ],
+  "devDependencies": {
+    "prettier": "^3.8.4"
+  }
 }
-

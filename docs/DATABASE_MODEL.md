@@ -64,4 +64,3 @@ Acoes:
 - `DUE_DATE_CHANGED`
 
 O acesso ao historico sera autorizado pela tarefa relacionada: uma consulta so retorna historico quando `tasks.user_id` for igual ao usuario autenticado.
-

@@ -14,10 +14,9 @@ export const createTaskSchema = z.object({
   dueDate: z.coerce.date(),
 });
 
-export const updateTaskSchema = createTaskSchema.partial().refine(
-  (data) => Object.keys(data).length > 0,
-  "Informe ao menos um campo para atualizar.",
-);
+export const updateTaskSchema = createTaskSchema
+  .partial()
+  .refine((data) => Object.keys(data).length > 0, "Informe ao menos um campo para atualizar.");
 
 export const updateTaskStatusSchema = z.object({
   status: z.nativeEnum(TaskStatus),

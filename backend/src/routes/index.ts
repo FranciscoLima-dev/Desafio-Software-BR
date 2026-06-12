@@ -10,4 +10,3 @@ routes.use("/dashboard", dashboardRoutes);
 routes.use("/tasks", taskRoutes);
 
 export { routes };
-

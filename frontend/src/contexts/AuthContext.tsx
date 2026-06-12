@@ -105,4 +105,3 @@ export const useAuth = (): AuthContextValue => {
 
   return context;
 };
-

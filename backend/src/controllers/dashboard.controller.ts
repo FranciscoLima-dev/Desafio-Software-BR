@@ -6,9 +6,7 @@ export class DashboardController {
   constructor(private readonly dashboardService = new DashboardService()) {}
 
   summary = async (request: Request, response: Response): Promise<void> => {
-    const summary = await this.dashboardService.summary(
-      this.getAuthenticatedUserId(request),
-    );
+    const summary = await this.dashboardService.summary(this.getAuthenticatedUserId(request));
 
     response.status(200).json({
       success: true,
@@ -22,5 +20,5 @@ export class DashboardController {
     }
 
     return request.user.id;
-  };
+  }
 }

@@ -7,10 +7,7 @@ import { TextField } from "../../components/form/TextField";
 import { Button } from "../../components/ui/Button";
 import { useAuth } from "../../contexts/AuthContext";
 import { getApiErrorMessage } from "../../utils/api-error";
-import {
-  loginFormSchema,
-  type LoginFormValues,
-} from "../../utils/auth-validation";
+import { loginFormSchema, type LoginFormValues } from "../../utils/auth-validation";
 
 type RedirectState = {
   from?: {
@@ -36,8 +33,7 @@ export function LoginPage() {
     },
   });
 
-  const redirectTo =
-    (location.state as RedirectState | null)?.from?.pathname ?? "/dashboard";
+  const redirectTo = (location.state as RedirectState | null)?.from?.pathname ?? "/dashboard";
 
   const onSubmit = async (values: LoginFormValues) => {
     setServerError(null);

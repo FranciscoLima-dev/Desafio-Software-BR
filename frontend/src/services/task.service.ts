@@ -1,17 +1,9 @@
 import { api } from "./api";
 import type { ApiResponse } from "../types/api";
-import type {
-  Task,
-  TaskFilters,
-  TaskHistoryEntry,
-  TaskPayload,
-  TaskStatus,
-} from "../types/task";
+import type { Task, TaskFilters, TaskHistoryEntry, TaskPayload, TaskStatus } from "../types/task";
 
 const cleanFilters = (filters: TaskFilters): TaskFilters =>
-  Object.fromEntries(
-    Object.entries(filters).filter(([, value]) => Boolean(value)),
-  ) as TaskFilters;
+  Object.fromEntries(Object.entries(filters).filter(([, value]) => Boolean(value))) as TaskFilters;
 
 const unwrapTask = (response: ApiResponse<Task>): Task => {
   if (!response.data) {
@@ -58,9 +50,7 @@ export const taskService = {
   },
 
   async history(id: string): Promise<TaskHistoryEntry[]> {
-    const response = await api.get<ApiResponse<TaskHistoryEntry[]>>(
-      `/tasks/${id}/history`,
-    );
+    const response = await api.get<ApiResponse<TaskHistoryEntry[]>>(`/tasks/${id}/history`);
 
     return response.data.data ?? [];
   },

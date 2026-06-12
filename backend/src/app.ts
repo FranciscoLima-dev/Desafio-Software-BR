@@ -17,4 +17,3 @@ app.get("/health", (_request, response) => {
 
 app.use("/api", routes);
 app.use(globalErrorHandler);
-

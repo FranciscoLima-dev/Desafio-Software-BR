@@ -45,4 +45,3 @@ Responsabilidades:
 - Historico sera derivado no service de tarefas antes de persistir alteracoes.
 - Dashboard sera calculado a partir do banco, sem dados mockados.
 - Erros terao formato unico com `success: false` e `message`.
-
